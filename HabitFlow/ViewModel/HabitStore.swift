@@ -27,6 +27,7 @@ class HabitStore: ObservableObject {
         let currentValue = updatedHabit.records[today] ?? false
         updatedHabit.records[today] = !currentValue
         habits[index] = updatedHabit
+        saveHabits()
         
         print("Habit '\(habit.title)' marked as \(!currentValue ? "done ✅" : "not done ❌")")
     }
