@@ -24,31 +24,46 @@ struct TodayHabitsView: View {
                 .multilineTextAlignment(.center)
                 .padding()
             } else {
-                ScrollView {
-                    VStack(spacing: 12) {
-                        ForEach(habitStore.habits) { habit in
-                            HabitRowView(
-                                habit: habit,
-                                isCompletedToday: habit.isCompletedToday,
-                                onToggle: {                   habitStore.toggleCompletion(for: habit)
-                                }
-                            )
+                List {
+                    ForEach(habitStore.habits) { habit in
+                        HabitRowView(
+                            habit: habit,
+                            isCompletedToday: habit.isCompletedToday,
+                            onToggle: {
+                                habitStore.toggleCompletion(for: habit)
+                            }
+                        )
+                        .padding(.vertical, 6)
+                        .padding(.horizontal)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                habitStore.deleteHabit(habit)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                            .tint(.red)
                         }
                     }
-                    .padding()
                 }
+                .listStyle(.plain)
             }
+        }
+    }
+    
+    private func deleteHabit(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let habit = habitStore.habits[index]
+            habitStore.deleteHabit(habit)
         }
     }
 }
 
-#Preview("Empty state") {
-    TodayHabitsView(habitStore: HabitStore())
-}
-
 #Preview("With habits") {
     TodayHabitsView(habitStore: {
-        let store = HabitStore()
+        let store = HabitStore(skipLoading: true)
         store.habits = [
             Habit(title: "Drink water"),
             Habit(title: "Read a book"),
@@ -56,4 +71,8 @@ struct TodayHabitsView: View {
         ]
         return store
     }())
+}
+
+#Preview("Empty state") {
+    TodayHabitsView(habitStore: HabitStore(skipLoading: true))
 }

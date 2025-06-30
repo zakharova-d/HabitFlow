@@ -68,15 +68,15 @@ struct ContentView: View {
     }
 }
 
-#Preview ("Empty state") {
-    ContentView(habitStore: HabitStore()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-}
-
 #Preview("With habits") {
     ContentView(habitStore: {
-        let store = HabitStore()
+        let store = HabitStore(skipLoading: true)
         store.addHabit(Habit(title: "Drink water"))
         store.addHabit(Habit(title: "Walk 10k steps"))
         return store
     }()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+}
+
+#Preview ("Empty state") {
+    ContentView(habitStore: HabitStore(skipLoading: true)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

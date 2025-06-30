@@ -12,6 +12,14 @@ import SwiftUI
 class HabitStore: ObservableObject {
     @Published var habits: [Habit] = []
     private let habitsKey = "savedHabits"
+    private var skipLoading: Bool
+    
+    init(skipLoading: Bool = false) {
+        self.skipLoading = skipLoading
+        if !skipLoading {
+            loadHabits()
+        }
+    }
 
     
     func addHabit(_ habit: Habit) {
@@ -28,7 +36,6 @@ class HabitStore: ObservableObject {
         updatedHabit.records[today] = !currentValue
         habits[index] = updatedHabit
         saveHabits()
-        
         print("Habit '\(habit.title)' marked as \(!currentValue ? "done ✅" : "not done ❌")")
     }
     
@@ -40,10 +47,19 @@ class HabitStore: ObservableObject {
     }
 
     func loadHabits() {
+        guard !skipLoading else { return }
         if let data = UserDefaults.standard.data(forKey: habitsKey),
            let decoded = try? JSONDecoder().decode([Habit].self, from: data) {
             self.habits = decoded
             print("Habits loaded: \(habits.count) total")
+        }
+    }
+    
+    func deleteHabit(_ habit: Habit) {
+        if let index = habits.firstIndex(where: { $0.id == habit.id }) {
+            habits.remove(at: index)
+            saveHabits()
+            print("Deleted habit: '\(habit.title)'")
         }
     }
     
