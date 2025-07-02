@@ -11,12 +11,16 @@ struct HabitRowView: View {
     let habit: Habit
     let isCompletedToday: Bool
     let onToggle: () -> Void
+    let onEdit: () -> Void
     
     var body: some View {
         HStack {
             Text(habit.title)
                 .font(.body)
                 .foregroundColor(.primary)
+                .onTapGesture {
+                    onEdit()
+                }
             
             Spacer()
             
@@ -38,13 +42,15 @@ struct HabitRowView: View {
     HabitRowView(
         habit: Habit(title: "Read a book"),
         isCompletedToday: true,
-        onToggle: {}
+        onToggle: {},
+        onEdit: {}
     )
 }
 #Preview("Not completed") {
     HabitRowView(
         habit: Habit(title: "Write a poem"),
         isCompletedToday: false,
-        onToggle: {}
+        onToggle: {},
+        onEdit: {}
     )
 }

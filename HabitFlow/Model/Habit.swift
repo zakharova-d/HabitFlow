@@ -17,13 +17,18 @@ struct Habit: Identifiable, Codable {
         isCompleted(on: Date())
     }
     
-    init(title: String) {
-            self.id = UUID()
-            self.title = title
-            self.createdDate = Date()
-            self.records = [:]
-        }
-
+    init(
+        id: UUID = UUID(),
+        title: String,
+        createdDate: Date = Date(),
+        records: [Date: Bool] = [:]
+    ) {
+        self.id = id
+        self.title = title
+        self.createdDate = createdDate
+        self.records = records
+    }
+    
     func isCompleted(on date: Date) -> Bool {
         records[Calendar.current.startOfDay(for: date)] ?? false
     }

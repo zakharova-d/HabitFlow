@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TodayHabitsView: View {
+    @State private var habitToEdit: Habit? = nil
     @ObservedObject var habitStore: HabitStore
     
     var body: some View {
@@ -31,6 +32,9 @@ struct TodayHabitsView: View {
                             isCompletedToday: habit.isCompletedToday,
                             onToggle: {
                                 habitStore.toggleCompletion(for: habit)
+                            },
+                            onEdit: {
+                                habitToEdit = habit
                             }
                         )
                         .padding(.vertical, 6)
@@ -49,6 +53,15 @@ struct TodayHabitsView: View {
                     }
                 }
                 .listStyle(.plain)
+                .sheet(item: $habitToEdit) { habit in
+                    AddHabitView(
+                        habitToEdit: habit,
+                        onSave: { _ in },
+                        onEdit: { updatedHabit in
+                            habitStore.editHabit(updatedHabit)
+                        }
+                    )
+                }
             }
         }
     }

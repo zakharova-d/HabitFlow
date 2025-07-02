@@ -63,6 +63,13 @@ class HabitStore: ObservableObject {
         }
     }
     
+    func editHabit(_ updatedHabit: Habit) {
+        if let index = habits.firstIndex(where: { $0.id == updatedHabit.id }) {
+            habits[index] = updatedHabit
+            saveHabits()
+        }
+    }
+    
     // MARK: - Future Extensions
 
     // TODO: Consider adding explicit methods for setting completion status:
