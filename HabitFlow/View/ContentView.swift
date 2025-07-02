@@ -56,7 +56,6 @@ struct ContentView: View {
             Spacer()
             Button(action: {
                 isPresentingAddHabit = true
-                print("Add habit sheet presented")
             }) {
                 Image(systemName: "plus")
                     .font(.title2)

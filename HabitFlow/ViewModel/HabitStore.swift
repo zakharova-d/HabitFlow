@@ -65,8 +65,10 @@ class HabitStore: ObservableObject {
     
     func editHabit(_ updatedHabit: Habit) {
         if let index = habits.firstIndex(where: { $0.id == updatedHabit.id }) {
+            var oldHabit = habits[index]
             habits[index] = updatedHabit
             saveHabits()
+            print("Edited habit: '\(oldHabit.title)' -> '\(updatedHabit.title)'")
         }
     }
     

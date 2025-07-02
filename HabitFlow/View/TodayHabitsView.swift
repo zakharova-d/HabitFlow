@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TodayHabitsView: View {
     @State private var habitToEdit: Habit? = nil
+    @State private var habitToDelete: Habit? = nil
     @ObservedObject var habitStore: HabitStore
     
     var body: some View {
@@ -35,6 +36,9 @@ struct TodayHabitsView: View {
                             },
                             onEdit: {
                                 habitToEdit = habit
+                            },
+                            onDelete: {
+                                habitToDelete = habit
                             }
                         )
                         .padding(.vertical, 6)
@@ -42,14 +46,6 @@ struct TodayHabitsView: View {
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                         .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                habitStore.deleteHabit(habit)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                            .tint(.red)
-                        }
                     }
                 }
                 .listStyle(.plain)
@@ -60,16 +56,20 @@ struct TodayHabitsView: View {
                         onEdit: { updatedHabit in
                             habitStore.editHabit(updatedHabit)
                         }
+                        
+                    )
+                }
+                .alert(item: $habitToDelete) { habit in
+                    Alert(
+                        title: Text("Delete Habit"),
+                        message: Text("Are you sure you want to delete \"\(habit.title)\"?"),
+                        primaryButton: .destructive(Text("Delete")) {
+                            habitStore.deleteHabit(habit)
+                        },
+                        secondaryButton: .cancel()
                     )
                 }
             }
-        }
-    }
-    
-    private func deleteHabit(at offsets: IndexSet) {
-        offsets.forEach { index in
-            let habit = habitStore.habits[index]
-            habitStore.deleteHabit(habit)
         }
     }
 }
