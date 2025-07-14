@@ -56,7 +56,6 @@ struct TodayHabitsView: View {
                         onEdit: { updatedHabit in
                             habitStore.editHabit(updatedHabit)
                         }
-                        
                     )
                 }
                 .alert(item: $habitToDelete) { habit in

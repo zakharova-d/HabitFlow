@@ -10,5 +10,5 @@ import Foundation
 enum HabitViewMode: String, CaseIterable {
     case today = "today"
     case weekly = "weekly"
-    case history = "history"
+    case progress = "progress"
 }

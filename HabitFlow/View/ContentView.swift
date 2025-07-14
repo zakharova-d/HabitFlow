@@ -44,8 +44,8 @@ struct ContentView: View {
             AnyView(TodayHabitsView(habitStore: habitStore))
         case .weekly:
             AnyView(Text("Screen: weekly"))
-        case .history:
-            AnyView(Text("Screen: history"))
+        case .progress:
+            AnyView(HabitProgressView(habitStore: habitStore))
         }
     }
 
@@ -70,10 +70,24 @@ struct ContentView: View {
 #Preview("With habits") {
     ContentView(habitStore: {
         let store = HabitStore(skipLoading: true)
-        store.addHabit(Habit(title: "Drink water"))
-        store.addHabit(Habit(title: "Walk 10k steps"))
+        
+        var habit1 = Habit(title: "Drink water")
+        var habit2 = Habit(title: "Walk 10k steps")
+        
+        for i in 0..<30 {
+            let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
+            let key = Calendar.current.startOfDay(for: date)
+            
+            habit1.records[key] = i % 2 == 0
+            habit2.records[key] = true
+        }
+
+        store.addHabit(habit1)
+        store.addHabit(habit2)
+        
         return store
-    }()).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }())
+    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
 
 #Preview ("Empty state") {
