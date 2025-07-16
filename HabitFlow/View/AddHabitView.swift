@@ -33,7 +33,7 @@ struct AddHabitView: View {
 
             NavigationView {
                 VStack(alignment: .leading, spacing: 24) {
-                    Text("🌱 New Habit")
+                    Text(habitToEdit == nil ? "🌱 Add New Habit" : " 🪶 Edit Habit")
                         .font(.largeTitle.bold())
                         .padding(.top, 32)
                         .padding(.horizontal)

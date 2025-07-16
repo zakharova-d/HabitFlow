@@ -10,6 +10,10 @@ import SwiftUI
 
 struct HabitProgressView: View {
     @ObservedObject var habitStore: HabitStore
+    @State var selectedPeriod: Int = 30
+    let availablePeriods = [30, 60, 90]
+    @State private var habitToEdit: Habit? = nil
+    @State private var habitToDelete: Habit? = nil
     
     var body: some View {
         ZStack {
@@ -33,42 +37,68 @@ struct HabitProgressView: View {
                 .padding()
             } else {
                 ScrollView {
-                    VStack(spacing: 12) {
-                        ForEach(habitStore.habits) { habit in
-                            HabitProgressItemView(
-                                habitTitle: habit.title,
-                                doneCount: habit.records.filter { $0.value }.count,
-                                totalDaysInPeriod: trackingRangeInDays()
-                            )
+                    VStack(alignment: .leading) {
+                        HStack(spacing: 24) {
+                            ForEach(availablePeriods, id: \.self) { period in
+                                VStack(spacing: 4) {
+                                    Text("\(period) days")
+                                        .font(.headline)
+                                        .foregroundColor(selectedPeriod == period ? AppColor.strongGreen : .secondary)
+                                        .onTapGesture {
+                                            selectedPeriod = period
+                                        }
+                                    Rectangle()
+                                        .frame(height: 2)
+                                        .foregroundColor(selectedPeriod == period ? AppColor.green : .clear)
+                                }
+                            }
                         }
+                        .padding(.horizontal)
+                        .padding(.top, 4)
+                        
+                        VStack(spacing: 12) {
+                            ForEach(habitStore.habits) { habit in
+                                let done = habitStore.doneCount(for: habit, inLast: selectedPeriod)
+                                HabitProgressItemView(
+                                    habitTitle: habit.title,
+                                    doneCount: done,
+                                    totalDaysInPeriod: selectedPeriod,
+                                    onEdit: {
+                                        habitToEdit = habit
+                                    },
+                                    onDelete: {
+                                        habitToDelete = habit
+                                    }
+                                )
+                            }
+                        }
+                        .padding()
+                        .editSheet(for: $habitToEdit, in: habitStore)
+                        .deleteAlert(for: $habitToDelete, in: habitStore)
                     }
-                    .padding()
                 }
             }
         }
-    }
-    
-    func trackingRangeInDays() -> Int {
-        return 30 // or 60, or 90 — could be made dynamic later
     }
 }
 
 #Preview("With progress") {
     let store = HabitStore(skipLoading: true)
     store.habits = [
-        Habit(title: "Read a Book", records: (0..<30).reduce(into: [:]) {
+        Habit(title: "Read a Book", records: (0..<90).reduce(into: [:]) {
             let date = Calendar.current.date(byAdding: .day, value: -$1, to: Date())!
             $0[Calendar.current.startOfDay(for: date)] = $1 % 2 == 0
         }),
-        Habit(title: "Meditate", records: (0..<30).reduce(into: [:]) {
+        Habit(title: "Meditate", records: (0..<90).reduce(into: [:]) {
             let date = Calendar.current.date(byAdding: .day, value: -$1, to: Date())!
             $0[Calendar.current.startOfDay(for: date)] = $1 % 3 == 0
         }),
-        Habit(title: "Walk", records: (0..<30).reduce(into: [:]) {
+        Habit(title: "Walk", records: (0..<90).reduce(into: [:]) {
             let date = Calendar.current.date(byAdding: .day, value: -$1, to: Date())!
             $0[Calendar.current.startOfDay(for: date)] = true
         })
     ]
+    let selectedPeriod = Binding<Int>(get: { 90 }, set: { _ in })
     return HabitProgressView(habitStore: store)
 }
 
@@ -79,5 +109,6 @@ struct HabitProgressView: View {
         Habit(title: "Meditate"),
         Habit(title: "Walk")
     ]
+    let selectedPeriod = Binding<Int>(get: { 30 }, set: { _ in })
     return HabitProgressView(habitStore: store)
 }

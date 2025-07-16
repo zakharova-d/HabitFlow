@@ -72,6 +72,16 @@ class HabitStore: ObservableObject {
         }
     }
     
+    func doneCount(for habit: Habit, inLast days: Int) -> Int {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let fromDate = calendar.date(byAdding: .day, value: -days + 1, to: today)!
+
+        return habit.records.filter { date, done in
+            done && date >= fromDate && date <= today
+        }.count
+    }
+    
     // MARK: - Future Extensions
 
     // TODO: Consider adding explicit methods for setting completion status:

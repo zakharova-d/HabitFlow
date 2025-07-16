@@ -49,25 +49,8 @@ struct TodayHabitsView: View {
                     }
                 }
                 .listStyle(.plain)
-                .sheet(item: $habitToEdit) { habit in
-                    AddHabitView(
-                        habitToEdit: habit,
-                        onSave: { _ in },
-                        onEdit: { updatedHabit in
-                            habitStore.editHabit(updatedHabit)
-                        }
-                    )
-                }
-                .alert(item: $habitToDelete) { habit in
-                    Alert(
-                        title: Text("Delete Habit"),
-                        message: Text("Are you sure you want to delete \"\(habit.title)\"?"),
-                        primaryButton: .destructive(Text("Delete")) {
-                            habitStore.deleteHabit(habit)
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
+                .editSheet(for: $habitToEdit, in: habitStore)
+                .deleteAlert(for: $habitToDelete, in: habitStore)
             }
         }
     }

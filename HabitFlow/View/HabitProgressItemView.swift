@@ -11,6 +11,8 @@ struct HabitProgressItemView: View {
     let habitTitle: String
     let doneCount: Int
     let totalDaysInPeriod: Int
+    let onEdit: () -> Void
+    let onDelete: () -> Void
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -26,6 +28,18 @@ struct HabitProgressItemView: View {
         .background(Color.white.opacity(0.8))
         .cornerRadius(12)
         .shadow(radius: 4)
+        .contextMenu {
+            Button {
+                onEdit()
+            } label: {
+                Label("Edit", systemImage: "pencil")
+            }
+            Button (role: .destructive) {
+                onDelete()
+            } label: {
+                Label("Remove", systemImage: "trash")
+            }
+        }
     }
 }
 
@@ -33,7 +47,9 @@ struct HabitProgressItemView: View {
     HabitProgressItemView(
         habitTitle: "Read a Book",
         doneCount: 22,
-        totalDaysInPeriod: 30
+        totalDaysInPeriod: 30,
+        onEdit: {},
+        onDelete: {}
     )
 }
 
@@ -41,6 +57,8 @@ struct HabitProgressItemView: View {
     HabitProgressItemView(
         habitTitle: "Read a Book",
         doneCount: 0,
-        totalDaysInPeriod: 30
+        totalDaysInPeriod: 30,
+        onEdit: {},
+        onDelete: {}
     )
 }
