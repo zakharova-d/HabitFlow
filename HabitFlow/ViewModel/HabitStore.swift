@@ -39,6 +39,16 @@ class HabitStore: ObservableObject {
         print("Habit '\(habit.title)' marked as \(!currentValue ? "done ✅" : "not done ❌")")
     }
     
+    func toggleCompletion(for habit: Habit, on date: Date) {
+        guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
+        var updatedHabit = habits[index]
+        let currentValue = updatedHabit.records[date] ?? false
+        updatedHabit.records[date] = !currentValue
+        habits[index] = updatedHabit
+        saveHabits()
+        print("Habit '\(habit.title)' marked as \(!currentValue ? "done ✅" : "not done ❌") at \(date)")
+    }
+    
     func saveHabits() {
         if let encoded = try? JSONEncoder().encode(habits) {
             UserDefaults.standard.set(encoded, forKey: habitsKey)

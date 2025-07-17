@@ -43,7 +43,7 @@ struct ContentView: View {
         case .today:
             AnyView(TodayHabitsView(habitStore: habitStore))
         case .weekly:
-            AnyView(Text("Screen: weekly"))
+            AnyView(WeeklyHabitsView(habitStore: habitStore))
         case .progress:
             AnyView(HabitProgressView(habitStore: habitStore))
         }
