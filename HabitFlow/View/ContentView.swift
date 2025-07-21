@@ -11,12 +11,12 @@ struct ContentView: View {
     @State private var selectedMode: HabitViewMode = .today
     @State private var isPresentingAddHabit = false
     @ObservedObject var habitStore: HabitStore
-
+    
     var body: some View {
         ZStack {
             Color(AppColor.background)
                 .ignoresSafeArea()
-
+            
             VStack(spacing: 0) {
                 header
                     .sheet(isPresented: $isPresentingAddHabit) {
@@ -24,20 +24,43 @@ struct ContentView: View {
                             habitStore.addHabit(newHabit)
                         }
                     }
-
+                
                 HabitModePicker(selected: $selectedMode)
-
+                
                 currentScreen
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(.systemGray6))
             }
+            .gesture(
+                DragGesture()
+                    .onEnded { value in
+                        let horizontalAmount = value.translation.width
+                        
+                        guard abs(horizontalAmount) > 50 else { return }
+                        
+                        switch horizontalAmount {
+                        case ..<0:
+                            // Swipe left – forward
+                            if let next = HabitViewMode.allCases.next(after: selectedMode) {
+                                selectedMode = next
+                            }
+                        case 0...:
+                            // Swipe right – back
+                            if let previous = HabitViewMode.allCases.previous(before: selectedMode) {
+                                selectedMode = previous
+                            }
+                        default:
+                            break
+                        }
+                    }
+            )
             .padding()
             .onAppear {
                 habitStore.loadHabits()
             }
         }
     }
-
+    
     private var currentScreen: some View {
         switch selectedMode {
         case .today:
@@ -48,7 +71,7 @@ struct ContentView: View {
             AnyView(HabitProgressView(habitStore: habitStore))
         }
     }
-
+    
     private var header: some View {
         HStack {
             Text("Habits")
@@ -81,7 +104,7 @@ struct ContentView: View {
             habit1.records[key] = i % 2 == 0
             habit2.records[key] = true
         }
-
+        
         store.addHabit(habit1)
         store.addHabit(habit2)
         
@@ -89,6 +112,19 @@ struct ContentView: View {
     }())
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
+
+extension Array where Element: Equatable {
+    func next(after element: Element) -> Element? {
+        guard let index = firstIndex(of: element), index + 1 < count else { return nil }
+        return self[index + 1]
+    }
+    
+    func previous(before element: Element) -> Element? {
+        guard let index = firstIndex(of: element), index - 1 >= 0 else { return nil }
+        return self[index - 1]
+    }
+}
+
 
 #Preview ("Empty state") {
     ContentView(habitStore: HabitStore(skipLoading: true)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
