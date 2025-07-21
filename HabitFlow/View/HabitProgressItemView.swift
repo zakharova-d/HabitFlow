@@ -17,17 +17,17 @@ struct HabitProgressItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(habitTitle)
-                .foregroundStyle(AppColor.orange)
-                .bold()
             ProgressView(value: Double(doneCount) / Double(totalDaysInPeriod)) {
                 Text("\(doneCount)/\(totalDaysInPeriod)")
+                    .font(.footnote)
+                    .foregroundStyle(AppColor.orange)
             }
             .accentColor(AppColor.green)
         }
         .padding()
-        .background(Color.white.opacity(0.8))
-        .cornerRadius(12)
-        .shadow(radius: 4)
+        .background(Color.white.opacity(0.7))
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
         .contextMenu {
             Button {
                 onEdit()

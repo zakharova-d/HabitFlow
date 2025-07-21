@@ -72,7 +72,11 @@ struct HabitProgressView: View {
                                 )
                             }
                         }
-                        .padding()
+                        .padding(.vertical, 6)
+                        .padding(.horizontal)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                         .editSheet(for: $habitToEdit, in: habitStore)
                         .deleteAlert(for: $habitToDelete, in: habitStore)
                     }

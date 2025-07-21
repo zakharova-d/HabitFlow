@@ -18,9 +18,8 @@ struct WeeklyHabitItemView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(habit.title)
-                .font(.headline)
             
-            HStack(spacing: 12) {
+            HStack(spacing: 14) {
                 ForEach(dates, id: \.self) { date in
                     let isDone = habit.records[Calendar.current.startOfDay(for: date)] ?? false
                     
