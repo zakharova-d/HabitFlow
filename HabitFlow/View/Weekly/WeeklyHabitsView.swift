@@ -68,21 +68,6 @@ extension Date {
     }
 }
 
-struct WeeklyHabitsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let mockHabits = [
-            Habit(title: "Drink Water", createdDate: Date().addingTimeInterval(-86400 * 10), records: [
-                Calendar.current.startOfDay(for: Date().addingTimeInterval(-86400 * 1)): true,
-                Calendar.current.startOfDay(for: Date()): true
-            ]),
-            Habit(title: "Read Book", createdDate: Date().addingTimeInterval(-86400 * 10), records: [
-                Calendar.current.startOfDay(for: Date().addingTimeInterval(-86400 * 2)): true
-            ]),
-            Habit(title: "Meditate", createdDate: Date().addingTimeInterval(-86400 * 10))
-        ]
-        let mockStore = HabitStore(shouldSkipLoading: true)
-        mockStore.habits = mockHabits
-        
-        return WeeklyHabitsView(habitStore: mockStore)
-    }
+#Preview("With habits") {
+    WeeklyHabitsView(habitStore: PreviewData.habitStoreWithSampleData())
 }

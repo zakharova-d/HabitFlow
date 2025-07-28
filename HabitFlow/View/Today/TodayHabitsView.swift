@@ -58,15 +58,7 @@ private struct TodayListView: View {
 }
 
 #Preview("With habits") {
-    TodayHabitsView(habitStore: {
-        let store = HabitStore(shouldSkipLoading: true)
-        store.habits = [
-            Habit(title: "Drink water"),
-            Habit(title: "Read a book"),
-            Habit(title: "Go for a walk")
-        ]
-        return store
-    }())
+    TodayHabitsView(habitStore: PreviewData.habitStoreWithSampleData())
 }
 
 #Preview("Empty state") {

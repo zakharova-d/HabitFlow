@@ -104,27 +104,7 @@ extension Array where Element: Equatable {
 }
 
 #Preview("With habits") {
-    ContentView(habitStore: {
-        let store = HabitStore(shouldSkipLoading: true)
-        
-        var habit1 = Habit(title: "Drink water")
-        var habit2 = Habit(title: "Walk 10k steps")
-        
-        for i in 0..<30 {
-            let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
-            let key = Calendar.current.startOfDay(for: date)
-            
-            if i % 2 == 0 {
-                habit1.toggleRecord(on: key)
-            }
-            habit2.toggleRecord(on: key)
-        }
-        
-        store.addHabit(habit1)
-        store.addHabit(habit2)
-        
-        return store
-    }())
+    ContentView(habitStore: PreviewData.habitStoreWithSampleData())
 }
 
 #Preview ("Empty state") {

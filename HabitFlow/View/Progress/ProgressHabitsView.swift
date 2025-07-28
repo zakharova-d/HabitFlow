@@ -91,24 +91,8 @@ private struct PeriodPickerView: View {
     }
 }
 
-#Preview("With progress") {
-    let store = HabitStore(shouldSkipLoading: true)
-    store.habits = [
-        Habit(title: "Read a Book", records: (0..<90).reduce(into: [:]) {
-            let date = Calendar.current.date(byAdding: .day, value: -$1, to: Date())!
-            $0[Calendar.current.startOfDay(for: date)] = $1 % 2 == 0
-        }),
-        Habit(title: "Meditate", records: (0..<90).reduce(into: [:]) {
-            let date = Calendar.current.date(byAdding: .day, value: -$1, to: Date())!
-            $0[Calendar.current.startOfDay(for: date)] = $1 % 3 == 0
-        }),
-        Habit(title: "Walk", records: (0..<90).reduce(into: [:]) {
-            let date = Calendar.current.date(byAdding: .day, value: -$1, to: Date())!
-            $0[Calendar.current.startOfDay(for: date)] = true
-        })
-    ]
-    let selectedPeriod = Binding<Int>(get: { 90 }, set: { _ in })
-    return ProgressHabitsView(habitStore: store)
+#Preview("With habits") {
+    ProgressHabitsView(habitStore: PreviewData.habitStoreWithSampleData())
 }
 
 #Preview("No progress") {
