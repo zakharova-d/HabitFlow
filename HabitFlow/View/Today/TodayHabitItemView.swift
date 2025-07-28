@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HabitRowView: View {
+struct TodayHabitItemView: View {
     let habit: Habit
     let isCompletedToday: Bool
     let onToggle: () -> Void
@@ -57,7 +57,7 @@ struct HabitRowView: View {
 
 
 #Preview("Completed") {
-    HabitRowView(
+    TodayHabitItemView(
         habit: Habit(title: "Read a book"),
         isCompletedToday: true,
         onToggle: {},
@@ -66,7 +66,7 @@ struct HabitRowView: View {
     )
 }
 #Preview("Not completed") {
-    HabitRowView(
+    TodayHabitItemView(
         habit: Habit(title: "Write a poem"),
         isCompletedToday: false,
         onToggle: {},

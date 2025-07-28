@@ -9,12 +9,11 @@ import SwiftUI
 
 @main
 struct HabitFlowApp: App {
-    let persistenceController = PersistenceController.shared
+    @StateObject private var habitStore = HabitStore()
 
     var body: some Scene {
         WindowGroup {
-            ContentView(habitStore: HabitStore())
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            ContentView(habitStore: habitStore)
         }
     }
 }

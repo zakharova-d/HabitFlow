@@ -12,3 +12,13 @@ enum HabitViewMode: String, CaseIterable {
     case weekly = "weekly"
     case progress = "progress"
 }
+
+extension HabitViewMode {
+    func next() -> HabitViewMode? {
+        HabitViewMode.allCases.next(after: self)
+    }
+
+    func previous() -> HabitViewMode? {
+        HabitViewMode.allCases.previous(before: self)
+    }
+}

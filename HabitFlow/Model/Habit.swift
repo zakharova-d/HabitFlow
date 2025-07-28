@@ -11,7 +11,7 @@ struct Habit: Identifiable, Codable {
     let id: UUID
     var title: String
     var createdDate: Date
-    var records: [Date : Bool]
+    private(set) var records: [Date: Bool]
     
     var isCompletedToday: Bool {
         isCompleted(on: Date())
@@ -29,7 +29,19 @@ struct Habit: Identifiable, Codable {
         self.records = records
     }
     
+    mutating func toggleRecord(on date: Date) {
+        let currentValue = records[date] ?? false
+        records[date] = !currentValue
+    }
+    
     func isCompleted(on date: Date) -> Bool {
         records[Calendar.current.startOfDay(for: date)] ?? false
+    }
+    
+    func completedDaysCount(inLast days: Int) -> Int {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let fromDate = calendar.date(byAdding: .day, value: -days + 1, to: today)!
+        return records.filter { $0.key >= fromDate && $0.key <= today && $0.value }.count
     }
 }

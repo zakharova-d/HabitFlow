@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct HabitProgressItemView: View {
+struct ProgressHabitItemView: View {
     let habitTitle: String
-    let doneCount: Int
+    let completedDaysCount: Int
     let totalDaysInPeriod: Int
     let onEdit: () -> Void
     let onDelete: () -> Void
@@ -17,8 +17,8 @@ struct HabitProgressItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(habitTitle)
-            ProgressView(value: Double(doneCount) / Double(totalDaysInPeriod)) {
-                Text("\(doneCount)/\(totalDaysInPeriod)")
+            ProgressView(value: Double(completedDaysCount) / Double(totalDaysInPeriod)) {
+                Text("\(completedDaysCount)/\(totalDaysInPeriod)")
                     .font(.footnote)
                     .foregroundStyle(AppColor.orange)
             }
@@ -44,9 +44,9 @@ struct HabitProgressItemView: View {
 }
 
 #Preview("With progress") {
-    HabitProgressItemView(
+    ProgressHabitItemView(
         habitTitle: "Read a Book",
-        doneCount: 22,
+        completedDaysCount: 22,
         totalDaysInPeriod: 30,
         onEdit: {},
         onDelete: {}
@@ -54,9 +54,9 @@ struct HabitProgressItemView: View {
 }
 
 #Preview("No progress") {
-    HabitProgressItemView(
+    ProgressHabitItemView(
         habitTitle: "Read a Book",
-        doneCount: 0,
+        completedDaysCount: 0,
         totalDaysInPeriod: 30,
         onEdit: {},
         onDelete: {}

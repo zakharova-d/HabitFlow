@@ -10,9 +10,33 @@
 		46B184212DFB68BF0046ED7D /* HabitFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		465F31152E33D38500E6BD61 /* Exceptions for "HabitFlow" folder in "HabitFlow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HabitFlow.xcdatamodeld,
+			);
+			target = 46B184202DFB68BF0046ED7D /* HabitFlow */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		465F31162E33D38500E6BD61 /* Exceptions for "HabitFlow" folder in "Compile Sources" phase from "HabitFlow" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 46B1841D2DFB68BF0046ED7D /* Sources */;
+			membershipExceptions = (
+				HabitFlow.xcdatamodeld,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		46B184232DFB68BF0046ED7D /* HabitFlow */ = {
+		465F30FE2E33D38500E6BD61 /* HabitFlow */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				465F31152E33D38500E6BD61 /* Exceptions for "HabitFlow" folder in "HabitFlow" target */,
+				465F31162E33D38500E6BD61 /* Exceptions for "HabitFlow" folder in "Compile Sources" phase from "HabitFlow" target */,
+			);
 			path = HabitFlow;
 			sourceTree = "<group>";
 		};
@@ -32,7 +56,7 @@
 		46B184182DFB68BF0046ED7D = {
 			isa = PBXGroup;
 			children = (
-				46B184232DFB68BF0046ED7D /* HabitFlow */,
+				465F30FE2E33D38500E6BD61 /* HabitFlow */,
 				46B184222DFB68BF0046ED7D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +85,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				46B184232DFB68BF0046ED7D /* HabitFlow */,
+				465F30FE2E33D38500E6BD61 /* HabitFlow */,
 			);
 			name = HabitFlow;
 			packageProductDependencies = (

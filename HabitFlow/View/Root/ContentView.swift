@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
     @State private var selectedMode: HabitViewMode = .today
@@ -31,44 +32,20 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(.systemGray6))
             }
-            .gesture(
-                DragGesture()
-                    .onEnded { value in
-                        let horizontalAmount = value.translation.width
-                        
-                        guard abs(horizontalAmount) > 50 else { return }
-                        
-                        switch horizontalAmount {
-                        case ..<0:
-                            // Swipe left – forward
-                            if let next = HabitViewMode.allCases.next(after: selectedMode) {
-                                selectedMode = next
-                            }
-                        case 0...:
-                            // Swipe right – back
-                            if let previous = HabitViewMode.allCases.previous(before: selectedMode) {
-                                selectedMode = previous
-                            }
-                        default:
-                            break
-                        }
-                    }
-            )
+            .gesture(swipeGesture)
             .padding()
-            .onAppear {
-                habitStore.loadHabits()
-            }
         }
     }
     
+    @ViewBuilder
     private var currentScreen: some View {
         switch selectedMode {
         case .today:
-            AnyView(TodayHabitsView(habitStore: habitStore))
+            TodayHabitsView(habitStore: habitStore)
         case .weekly:
-            AnyView(WeeklyHabitsView(habitStore: habitStore))
+            WeeklyHabitsView(habitStore: habitStore)
         case .progress:
-            AnyView(HabitProgressView(habitStore: habitStore))
+            ProgressHabitsView(habitStore: habitStore)
         }
     }
     
@@ -88,29 +65,30 @@ struct ContentView: View {
         }
         .padding()
     }
-}
-
-#Preview("With habits") {
-    ContentView(habitStore: {
-        let store = HabitStore(skipLoading: true)
-        
-        var habit1 = Habit(title: "Drink water")
-        var habit2 = Habit(title: "Walk 10k steps")
-        
-        for i in 0..<30 {
-            let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
-            let key = Calendar.current.startOfDay(for: date)
-            
-            habit1.records[key] = i % 2 == 0
-            habit2.records[key] = true
-        }
-        
-        store.addHabit(habit1)
-        store.addHabit(habit2)
-        
-        return store
-    }())
-    .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    
+    private var swipeGesture: some Gesture {
+        DragGesture()
+            .onEnded { value in
+                let horizontalAmount = value.translation.width
+                
+                guard abs(horizontalAmount) > 50 else { return }
+                
+                switch horizontalAmount {
+                case ..<0:
+                    // Swipe left – forward
+                    if let next = selectedMode.next() {
+                        selectedMode = next
+                    }
+                case 0...:
+                    // Swipe right – back
+                    if let previous = selectedMode.previous() {
+                        selectedMode = previous
+                    }
+                default:
+                    break
+                }
+            }
+    }
 }
 
 extension Array where Element: Equatable {
@@ -125,7 +103,30 @@ extension Array where Element: Equatable {
     }
 }
 
+#Preview("With habits") {
+    ContentView(habitStore: {
+        let store = HabitStore(shouldSkipLoading: true)
+        
+        var habit1 = Habit(title: "Drink water")
+        var habit2 = Habit(title: "Walk 10k steps")
+        
+        for i in 0..<30 {
+            let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
+            let key = Calendar.current.startOfDay(for: date)
+            
+            if i % 2 == 0 {
+                habit1.toggleRecord(on: key)
+            }
+            habit2.toggleRecord(on: key)
+        }
+        
+        store.addHabit(habit1)
+        store.addHabit(habit2)
+        
+        return store
+    }())
+}
 
 #Preview ("Empty state") {
-    ContentView(habitStore: HabitStore(skipLoading: true)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    ContentView(habitStore: HabitStore(shouldSkipLoading: true))
 }
