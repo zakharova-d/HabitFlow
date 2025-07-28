@@ -29,7 +29,7 @@ class HabitStore: ObservableObject {
         saveHabits()
     }
     
-    func toggleHabit(_ habit: Habit, on date: Date = Date()) {
+    func toggleHabit(_ habit: Habit, on date: Date = Date().startOfDay) {
         guard let index = index(of: habit) else { return }
         var updatedHabit = habits[index]
         let currentValue = updatedHabit.records[date] ?? false
@@ -72,5 +72,11 @@ class HabitStore: ObservableObject {
     
     private func log(_ message: String) {
         print("[HabitStore] \(message)")
+    }
+}
+
+extension Date {
+    var startOfDay: Date {
+        Calendar.current.startOfDay(for: self)
     }
 }
