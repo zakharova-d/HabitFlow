@@ -8,21 +8,27 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
 
 class HabitStore: ObservableObject {
-    @Published var habits: [Habit] = []
-    // Used to skip loading from persistence (for previews / tests)
-    private var shouldSkipLoading: Bool
-    private let persistence: HabitPersistence
+    // MARK: - Published Properties
+    @Published var habits: [Habit] = [] // Current list of habits
 
-    init(shouldSkipLoading: Bool = false, persistence: HabitPersistence = UserDefaultsHabitPersistence()) {
+    // MARK: - Private Properties
+    private var shouldSkipLoading: Bool // Used to skip loading (for previews or tests)
+    private let persistence: HabitPersistence
+    private var notificationToken: NotificationToken? // Realm notification token
+
+    // MARK: - Initialization
+    init(shouldSkipLoading: Bool = false, persistence: HabitPersistence = RealmHabitPersistence()) {
         self.shouldSkipLoading = shouldSkipLoading
         self.persistence = persistence
         if !shouldSkipLoading {
-            loadHabits()
+            loadHabits()        // Load initial habits from persistence
         }
     }
-    
+
+    // MARK: - Public Methods (CRUD)
     func addHabit(_ habit: Habit) {
         habits.append(habit)
         log("New habit created: \(habit.title)")
@@ -55,19 +61,20 @@ class HabitStore: ObservableObject {
             log("Deleted habit: '\(habit.title)'")
         }
     }
-    
+
+    // MARK: - Private Helpers
     private func index(of habit: Habit) -> Int? {
         return habits.firstIndex(where: { $0.id == habit.id })
     }
     
     private func saveHabits() {
         persistence.save(habits)
-        log("Habits saved succesfully")
+        log("Habits saved successfully")
     }
 
     private func loadHabits() {
         self.habits = persistence.load()
-        log("Habits loaded succesfully")
+        log("Habits loaded successfully")
     }
     
     private func log(_ message: String) {
