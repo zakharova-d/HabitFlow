@@ -27,13 +27,13 @@ struct ContentView: View {
                     }
                 
                 HabitModePicker(selected: $selectedMode)
+                    .padding(.horizontal, 24)
                 
                 currentScreen
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(.systemGray6))
             }
             .gesture(swipeGesture)
-            .padding()
         }
     }
     
@@ -63,7 +63,8 @@ struct ContentView: View {
                     .foregroundColor(AppColor.green)
             }
         }
-        .padding()
+        .padding(.top, 8)
+        .padding(.horizontal, 24)
     }
     
     private var swipeGesture: some Gesture {

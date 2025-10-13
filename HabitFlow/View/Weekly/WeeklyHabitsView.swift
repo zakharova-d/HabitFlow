@@ -14,7 +14,7 @@ struct WeeklyHabitsView: View {
     
     var body: some View {
         ZStack{
-            Color(Color(AppColor.background))
+            Color(AppColor.background)
                 .ignoresSafeArea()
             if habitStore.habits.isEmpty {
                 EmptyHabitsView()
