@@ -51,7 +51,7 @@ struct ContentView: View {
     
     private var header: some View {
         HStack {
-            Text("Habits")
+            Text(Bundle.main.appName)
                 .font(.title.bold())
             Spacer()
             Button(action: {
@@ -88,6 +88,12 @@ struct ContentView: View {
                     break
                 }
             }
+    }
+}
+
+extension Bundle {
+    var appName: String {
+        return object(forInfoDictionaryKey: "CFBundleName") as? String ?? "HabitFlow"
     }
 }
 

@@ -54,14 +54,6 @@ class HabitStore: ObservableObject {
         }
     }
     
-    func deleteHabit(_ habit: Habit) {
-        if let index = index(of: habit) {
-            habits.remove(at: index)
-            saveHabits()
-            log("Deleted habit: '\(habit.title)'")
-        }
-    }
-
     // MARK: - Private Helpers
     private func index(of habit: Habit) -> Int? {
         return habits.firstIndex(where: { $0.id == habit.id })
@@ -71,6 +63,7 @@ class HabitStore: ObservableObject {
         persistence.save(habits)
         log("Habits saved successfully")
     }
+
 
     private func loadHabits() {
         self.habits = persistence.load()

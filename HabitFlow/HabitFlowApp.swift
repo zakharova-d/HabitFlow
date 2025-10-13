@@ -10,10 +10,25 @@ import SwiftUI
 @main
 struct HabitFlowApp: App {
     @StateObject private var habitStore = HabitStore()
+    @State private var showLaunchScreen = true
 
     var body: some Scene {
         WindowGroup {
-            ContentView(habitStore: habitStore)
+            ZStack {
+                if showLaunchScreen {
+                    LaunchScreenView()
+                        .transition(.opacity)
+                } else {
+                    ContentView(habitStore: habitStore)
+                        .transition(.opacity)
+                }
+            }
+            .animation(.easeOut(duration: 0.8), value: showLaunchScreen)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    showLaunchScreen = false
+                }
+            }
         }
     }
 }

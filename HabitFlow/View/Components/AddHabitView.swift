@@ -58,6 +58,12 @@ struct AddHabitView: View {
                         .padding(.horizontal)
 
                     TextField("Habit name", text: $habitTitle)
+                        .onChange(of: habitTitle) {
+                            if habitTitle.count > 80 {
+                                habitTitle = String(habitTitle.prefix(80))
+                            }
+                        }
+                        .lineLimit(1)
                         .padding()
                         .background(Color.white.opacity(0.4))
                         .cornerRadius(12)

@@ -7,45 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		46C3321D2E38EA4F001BA84C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 46C3321C2E38EA4F001BA84C /* RealmSwift */; };
+		46E149C02E5498EE00F05875 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 46E149BF2E5498EE00F05875 /* Realm */; };
+		46E149C22E5498EE00F05875 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 46E149C12E5498EE00F05875 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		46B184212DFB68BF0046ED7D /* HabitFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		46973ACA2E4CEC9E00FACA87 /* HabitFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabitFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		46E149C32E5499BD00F05875 /* Exceptions for "HabitFlow" folder in "HabitFlow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 46973AC92E4CEC9E00FACA87 /* HabitFlow */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		465F30FE2E33D38500E6BD61 /* HabitFlow */ = {
+		46973ACC2E4CEC9E00FACA87 /* HabitFlow */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				46E149C32E5499BD00F05875 /* Exceptions for "HabitFlow" folder in "HabitFlow" target */,
+			);
 			path = HabitFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		46B1841E2DFB68BF0046ED7D /* Frameworks */ = {
+		46973AC72E4CEC9E00FACA87 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46C3321D2E38EA4F001BA84C /* RealmSwift in Frameworks */,
+				46E149C22E5498EE00F05875 /* RealmSwift in Frameworks */,
+				46E149C02E5498EE00F05875 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		46B184182DFB68BF0046ED7D = {
+		46973AC12E4CEC9E00FACA87 = {
 			isa = PBXGroup;
 			children = (
-				465F30FE2E33D38500E6BD61 /* HabitFlow */,
-				46B184222DFB68BF0046ED7D /* Products */,
+				46973ACC2E4CEC9E00FACA87 /* HabitFlow */,
+				46973ACB2E4CEC9E00FACA87 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		46B184222DFB68BF0046ED7D /* Products */ = {
+		46973ACB2E4CEC9E00FACA87 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				46B184212DFB68BF0046ED7D /* HabitFlow.app */,
+				46973ACA2E4CEC9E00FACA87 /* HabitFlow.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,68 +68,69 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		46B184202DFB68BF0046ED7D /* HabitFlow */ = {
+		46973AC92E4CEC9E00FACA87 /* HabitFlow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46B184342DFB68C20046ED7D /* Build configuration list for PBXNativeTarget "HabitFlow" */;
+			buildConfigurationList = 46973AD82E4CECA000FACA87 /* Build configuration list for PBXNativeTarget "HabitFlow" */;
 			buildPhases = (
-				46B1841D2DFB68BF0046ED7D /* Sources */,
-				46B1841E2DFB68BF0046ED7D /* Frameworks */,
-				46B1841F2DFB68BF0046ED7D /* Resources */,
+				46973AC62E4CEC9E00FACA87 /* Sources */,
+				46973AC72E4CEC9E00FACA87 /* Frameworks */,
+				46973AC82E4CEC9E00FACA87 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				465F30FE2E33D38500E6BD61 /* HabitFlow */,
+				46973ACC2E4CEC9E00FACA87 /* HabitFlow */,
 			);
 			name = HabitFlow;
 			packageProductDependencies = (
-				46C3321C2E38EA4F001BA84C /* RealmSwift */,
+				46E149BF2E5498EE00F05875 /* Realm */,
+				46E149C12E5498EE00F05875 /* RealmSwift */,
 			);
 			productName = HabitFlow;
-			productReference = 46B184212DFB68BF0046ED7D /* HabitFlow.app */;
+			productReference = 46973ACA2E4CEC9E00FACA87 /* HabitFlow.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		46B184192DFB68BF0046ED7D /* Project object */ = {
+		46973AC22E4CEC9E00FACA87 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					46B184202DFB68BF0046ED7D = {
+					46973AC92E4CEC9E00FACA87 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
-			buildConfigurationList = 46B1841C2DFB68BF0046ED7D /* Build configuration list for PBXProject "HabitFlow" */;
+			buildConfigurationList = 46973AC52E4CEC9E00FACA87 /* Build configuration list for PBXProject "HabitFlow" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 46B184182DFB68BF0046ED7D;
+			mainGroup = 46973AC12E4CEC9E00FACA87;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				46C3321B2E38EA4F001BA84C /* XCRemoteSwiftPackageReference "realm-swift" */,
+				46E149BE2E5498EE00F05875 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 46B184222DFB68BF0046ED7D /* Products */;
+			productRefGroup = 46973ACB2E4CEC9E00FACA87 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				46B184202DFB68BF0046ED7D /* HabitFlow */,
+				46973AC92E4CEC9E00FACA87 /* HabitFlow */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		46B1841F2DFB68BF0046ED7D /* Resources */ = {
+		46973AC82E4CEC9E00FACA87 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -124,7 +140,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		46B1841D2DFB68BF0046ED7D /* Sources */ = {
+		46973AC62E4CEC9E00FACA87 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -134,7 +150,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		46B184322DFB68C20046ED7D /* Debug */ = {
+		46973AD62E4CECA000FACA87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -197,7 +213,7 @@
 			};
 			name = Debug;
 		};
-		46B184332DFB68C20046ED7D /* Release */ = {
+		46973AD72E4CECA000FACA87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -253,7 +269,7 @@
 			};
 			name = Release;
 		};
-		46B184352DFB68C20046ED7D /* Debug */ = {
+		46973AD92E4CECA000FACA87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -269,6 +285,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -282,7 +299,7 @@
 			};
 			name = Debug;
 		};
-		46B184362DFB68C20046ED7D /* Release */ = {
+		46973ADA2E4CECA000FACA87 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -298,6 +315,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,20 +332,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		46B1841C2DFB68BF0046ED7D /* Build configuration list for PBXProject "HabitFlow" */ = {
+		46973AC52E4CEC9E00FACA87 /* Build configuration list for PBXProject "HabitFlow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46B184322DFB68C20046ED7D /* Debug */,
-				46B184332DFB68C20046ED7D /* Release */,
+				46973AD62E4CECA000FACA87 /* Debug */,
+				46973AD72E4CECA000FACA87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46B184342DFB68C20046ED7D /* Build configuration list for PBXNativeTarget "HabitFlow" */ = {
+		46973AD82E4CECA000FACA87 /* Build configuration list for PBXNativeTarget "HabitFlow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				46B184352DFB68C20046ED7D /* Debug */,
-				46B184362DFB68C20046ED7D /* Release */,
+				46973AD92E4CECA000FACA87 /* Debug */,
+				46973ADA2E4CECA000FACA87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -335,23 +353,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		46C3321B2E38EA4F001BA84C /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		46E149BE2E5498EE00F05875 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = exactVersion;
+				version = 10.44.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		46C3321C2E38EA4F001BA84C /* RealmSwift */ = {
+		46E149BF2E5498EE00F05875 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 46C3321B2E38EA4F001BA84C /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = 46E149BE2E5498EE00F05875 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		46E149C12E5498EE00F05875 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 46E149BE2E5498EE00F05875 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 46B184192DFB68BF0046ED7D /* Project object */;
+	rootObject = 46973AC22E4CEC9E00FACA87 /* Project object */;
 }
