@@ -16,6 +16,12 @@ class UserDefaultsHabitPersistence: HabitPersistence {
             UserDefaults.standard.set(encoded, forKey: habitsKey)
         }
     }
+    
+    func delete(_ habit: Habit) {
+        var habits = load()
+        habits.removeAll { $0.id == habit.id }
+        save(habits)
+    }
 
     func load() -> [Habit] {
         guard let data = UserDefaults.standard.data(forKey: habitsKey),

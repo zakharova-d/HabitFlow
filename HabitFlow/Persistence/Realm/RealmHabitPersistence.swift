@@ -30,6 +30,19 @@ class RealmHabitPersistence: HabitPersistence {
         }
     }
     
+    func delete(_ habit: Habit) {
+        do {
+            let realm = try Realm()
+            if let objectToDelete = realm.object(ofType: RealmHabit.self, forPrimaryKey: habit.id) {
+                try realm.write {
+                    realm.delete(objectToDelete)
+                }
+            }
+        } catch {
+            print("❌ Failed to delete habit from Realm: \(error)")
+        }
+    }
+    
     // MARK: - Load
     func load() -> [Habit] {
         let realmHabits = realm.objects(RealmHabit.self)

@@ -54,6 +54,13 @@ class HabitStore: ObservableObject {
         }
     }
     
+    func deleteHabit(_ habit: Habit) {
+        guard let index = index(of: habit) else { return }
+        habits.remove(at: index)
+        persistence.delete(habit)
+        log("Deleted habit: '\(habit.title)'")
+    }
+    
     // MARK: - Private Helpers
     private func index(of habit: Habit) -> Int? {
         return habits.firstIndex(where: { $0.id == habit.id })
