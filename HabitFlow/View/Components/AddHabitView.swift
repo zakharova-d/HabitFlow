@@ -10,6 +10,7 @@ import SwiftUI
 struct AddHabitView: View {
     @Environment(\.dismiss) var dismiss
     @State private var habitTitle: String = ""
+    @FocusState private var nameFocused: Bool
     var habitToEdit: Habit?
     
     var onAddHabit: (Habit) -> Void
@@ -42,6 +43,7 @@ struct AddHabitView: View {
         } else {
             onUpdateHabit(updatedHabit)
         }
+        nameFocused = false
         dismiss()
     }
 
@@ -58,15 +60,29 @@ struct AddHabitView: View {
                         .padding(.horizontal)
 
                     TextField("Habit name", text: $habitTitle)
+                        .textInputAutocapitalization(.sentences)
+                        .autocorrectionDisabled(false)
+                        .focused($nameFocused)
+                        .submitLabel(.done)
+                        .onSubmit { saveHabit() }
                         .onChange(of: habitTitle) {
-                            if habitTitle.count > 80 {
-                                habitTitle = String(habitTitle.prefix(80))
+                            if habitTitle.count > 40 {
+                                habitTitle = String(habitTitle.prefix(40))
                             }
                         }
                         .lineLimit(1)
-                        .padding()
-                        .background(Color.white.opacity(0.4))
-                        .cornerRadius(12)
+                        .truncationMode(.tail)
+                        .padding(.vertical, 14)
+                        .padding(.horizontal, 16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(Color.white)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(Color.black.opacity(0.10), lineWidth: 1)
+                        )
+                        .shadow(color: Color.black.opacity(0.04), radius: 6, y: 2)
                         .padding(.horizontal)
 
                     Spacer()
@@ -75,6 +91,11 @@ struct AddHabitView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .center)
+                }
+                .task {
+                    // slight delay so the sheet/push animation finishes before focusing
+                    try? await Task.sleep(nanoseconds: 150_000_000)
+                    nameFocused = true
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
