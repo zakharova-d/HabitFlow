@@ -15,19 +15,22 @@ struct WeeklyHabitItemView: View {
     let onEdit: () -> Void
     let onDelete: () -> Void
     
+    // 7 equal-width columns so date bubbles stretch to fill available width
+    private let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 14, alignment: .center), count: 7)
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(habit.title)
             
-            HStack(spacing: 14) {
+            LazyVGrid(columns: columns, alignment: .center, spacing: 8) {
                 ForEach(dates, id: \.self) { date in
                     let isDone = habit.records[Calendar.current.startOfDay(for: date)] ?? false
-                    
+
                     VStack(spacing: 4) {
                         Text(shortWeekday(from: date))
                             .font(.caption2)
                             .foregroundColor(AppColor.orange)
-                        
+
                         Button(action: {
                             toggleAction(date)
                         }) {
@@ -45,6 +48,7 @@ struct WeeklyHabitItemView: View {
             }
         }
         .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.white.opacity(0.7))
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
