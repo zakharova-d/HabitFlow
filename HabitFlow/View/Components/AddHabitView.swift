@@ -12,6 +12,7 @@ struct AddHabitView: View {
     @State private var habitTitle: String = ""
     @FocusState private var nameFocused: Bool
     var habitToEdit: Habit?
+    private let maxTitleLength: Int = 40
     
     var onAddHabit: (Habit) -> Void
     var onUpdateHabit: (Habit) -> Void
@@ -66,8 +67,8 @@ struct AddHabitView: View {
                         .submitLabel(.done)
                         .onSubmit { saveHabit() }
                         .onChange(of: habitTitle) {
-                            if habitTitle.count > 40 {
-                                habitTitle = String(habitTitle.prefix(40))
+                            if habitTitle.count > maxTitleLength {
+                                habitTitle = String(habitTitle.prefix(maxTitleLength))
                             }
                         }
                         .lineLimit(1)
@@ -84,6 +85,15 @@ struct AddHabitView: View {
                         )
                         .shadow(color: Color.black.opacity(0.04), radius: 6, y: 2)
                         .padding(.horizontal)
+                    HStack {
+                        Spacer()
+                        Text("\(max(0, maxTitleLength - habitTitle.count))/\(maxTitleLength)")
+                            .font(.caption2)
+                            .monospacedDigit()
+                            .foregroundColor(.secondary)
+                            .padding(.top, 4)
+                            .padding(.trailing, 20)
+                    }
 
                     Spacer()
 
