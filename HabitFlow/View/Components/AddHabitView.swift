@@ -33,6 +33,7 @@ struct AddHabitView: View {
     }
     
     private func saveHabit() {
+        guard !habitTitle.trimmingCharacters(in: .whitespaces).isEmpty else { return }
         let updatedHabit = Habit(
             id: habitToEdit?.id ?? UUID(),
             title: habitTitle,
